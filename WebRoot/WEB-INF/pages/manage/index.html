@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <title>首页</title>
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="/js/project/project.js"></script>
+    <script type="text/javascript">
+        //头部页签类别
+        var _headType = "sys_index";
+        var _leftmenu = "sys_index";
+        //左侧类别
+        var _setLeft = "1";
+        RS.importres(["inc", "layer", "font", "bootstrap", "/style/manange/inc/manage.inc.css"]);
+      	//加载完成
+        RS.ready = function () {
+        };
+    </script>
+</head>
+<body>
+<#include "/WEB-INF/pages/manage/inc/header.html"/>
+<div class="main" style="">
+    <!-- left -->
+    <#include "/WEB-INF/pages/manage/inc/left-menu.html"/>
+    <!-- end left menu -->
+    <!-- right begin -->
+    <div class="right" style="">
+        <ol class="breadcrumb">
+            <li>首页</li>
+        </ol>
+        <table class="form" id="form" style="margin: 0 auto; width: 100%;">
+            <tr>
+            	<td>
+            		您好，欢迎访问！
+            	</td>
+            </tr>
+        </table>
+	</div>
+</div>
+
+<!-- footer -->
+<#include "/WEB-INF/pages/manage/inc/footer.html"/>
+<style>
+    div.modal-body img {
+        cursor: col-resize;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <title>异常</title>
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="/js/project/project.js"></script>
+    <script type="text/javascript">
+        RS.importres(["inc", "layer", "font", "bootstrap", "/style/manange/inc/manage.inc.css"]);
+      	//加载完成
+        RS.ready = function () {
+        };
+    </script>
+</head>
+<body>
+    <div class="row text-center">
+        异常信息：${ex.message!}
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+@CHARSET "UTF-8";
+.ncsc-goodspic-list ul{
+	font-size: 0;
+    margin-left: -1px;
+}
+.ncsc-goodspic-list ul li{
+	border-collapse: collapse;
+    border: solid 1px #DEEFFB;
+    font-size: 12px;
+    vertical-align: top;
+    letter-spacing: normal;
+    word-spacing: normal;
+    display: inline-block;
+    width: 140px;
+    height: 180px;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+}
+.ncsc-goodspic-list ul li .upload-thumb{
+	line-height: 0;
+    background-color: #DEEFFB;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    width: 120px;
+    height: 120px;
+    border: solid 1px #F5F5F5;
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    overflow: hidden;
+}
+.ncsc-goodspic-list ul li .show-default{
+	display: block;
+    width: 120px;
+    height: 30px;
+    padding: 90px 0 0;
+    border: solid 1px #F5F5F5;
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+.ncsc-goodspic-upload .show-sort{
+	line-height: 20px;
+    color: #999;
+    width: 55px;
+    height: 20px;
+    padding: 4px 0 4px 4px;
+    border-style: solid;
+    border-color: #E6E6E6;
+    border-width: 1px 0 1px 1px;
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    top: 140px;
+}
+.ncsc-goodspic-upload .ncsc-upload-btn{
+	width: 60px;
+    height: 30px;
+    position: absolute;
+    z-index: 1px;
+    left: 70px;
+    top: 140px;
+}
+.ncsc-goodspic-list ul li .upload-thumb img{
+	max-width: 120px;
+    max-height: 120px;
+    margin-top: expression(120-this . height/ 2);
+}
+.ncsc-goodspic-list ul li a.del{
+	font-family: Tahoma, Geneva, sans-serif;
+    font-size: 9px;
+    padding-right: 1px;
+    font-weight: lighter;
+    background-color: #FFF;
+    line-height: 14px;
+    text-align: center;
+    display: none;
+    width: 14px;
+    height: 14px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 3;
+    top: -8px;
+    right: -8px;
+}
+.ncsc-goodspic-upload .ncsc-upload-btn .input-file{
+	width: 60px;
+    color: #000000;
+    height: 23px;
+    padding-top: 5px;
+    border: 1px solid #E6E6E6;
+    text-decoration: none;
+}

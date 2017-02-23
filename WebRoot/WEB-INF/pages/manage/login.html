@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="keywords" content="">
+<title>云管理平台</title>
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="/js/project/project.js"></script>
+    <script type="text/javascript">
+        RS.importres(["inc", "layer", "font", "bootstrap", "/style/manange/inc/manage.inc.css", "/js/manage/login.js"]);
+        //加载完成
+        RS.ready = function () {
+        	document.onkeydown = function(e){ 
+                var ev = document.all ? window.event : e;
+                if(ev.keyCode==13) {
+                    login();
+                }
+            };
+        };
+    </script>
+<body >
+<div style="position:absolute; float:right;top:20px;right:20px;" class="headlink">
+	<!--<a href="/index">首页</a><a href="javascript:;" style="border-right: none;">帮助</a>-->
+</div>
+	<div class="main" style="margin:100px auto 20px auto;clear:both;">
+		<div class="row login" >
+			<div style="width:400px;margin:auto;">
+				<div class="panel panel-info" style="margin-top:20px;">
+					<div class="panel-heading">
+						<h3 class="panel-title" id="panel-title">
+							管理平台登录<a class="anchorjs-link" href="#panel-title"><span
+								class="anchorjs-icon"></span></a>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<form id="loginForm">
+							<div class="form-group">
+								<label for="exampleInputEmail1">帐号</label> <input type="text" valid="not-null"
+									class="form-control" id="userName" name="userName" placeholder="帐号">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">登录密码</label> <input valid="not-null"
+									type="password" class="form-control" id="password" name="password"
+									placeholder="密码">
+							</div>
+							<button type="button" class="btn btn-success btn-block" onclick="login();">登
+								录</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div class="footer">
+	</div>
+<style>
+body{background: url("/images/manage/bg.jpg");background-size: 100%;}
+.footer .links2 a{color:#eee;}
+.headlink a{color:#eee;}
+.footer .links1 a{color:#eee;}
+.footer p{color:#ddd;}
+.login{height:320px;}
+.footer{border:none;}
+.row{margin:0;}
+.panel{    background-color: rgba(255,255,255,0.2);}
+.form-control{    background-color: rgba(255,255,255,0.2);height:44px;color:#00FFFF;font-size:18px;}
+.panel-info {
+    border-color: #99CCFF;
+}
+.panel-info>.panel-heading {
+    color: #fff;
+    background-color: rgba(255,255,255,0);
+    border-color: #bce8f1;
+}
+.btn{height:40px;margin-top:40px;border:solid 1px #00FFFF;    background-color: rgba(102,153,255,0.4);font-size:18px;}
+label{color: #DDD;}
+</style>
+</body>
+</html>

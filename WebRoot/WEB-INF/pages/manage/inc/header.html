@@ -1,0 +1,75 @@
+<script type="text/javascript" src="/js/jquery/jquery-1.11.2.min.js"></script>
+<script>
+$(function(){
+	try{$("#header_" + _headType).addClass("active");}catch(e){console.log(e);}
+	$("li.dropdown").mouseenter(function(){
+		$(this).stop(true, true);
+		$(this).find("a").addClass("active");
+		$(this).find("a>i.di").removeClass("icon-angle-down");
+		$(this).find("a>i.di").addClass("icon-angle-up");
+		$(".dropdownlayer").slideDown();
+	}).mouseleave(function(){
+		$(this).stop(true, true);
+		$(this).find("a").removeClass("active");
+		$(this).find("a>i.di").removeClass("icon-angle-up");
+		$(this).find("a>i.di").addClass("icon-angle-down");
+		$(".dropdownlayer").slideUp();
+	});
+	
+	//自定义日期控件清除
+    $(".icon-remove").click(function(){
+    	$(this).parent().find("input").val("");
+    });
+    
+	
+    /**======end======*/
+});
+
+//退出登陆
+function logout() {
+	alertConfirm("确定退出登录吗？",function () {
+		post("/sys/login/ajaxLogout", {}, function(res){
+			console.log(res);
+			if(res.errcode === 0){
+				window.location.reload();
+			}else{
+				alertMsg(res.errmsg, 2);
+			}
+		});
+	});
+}
+</script>
+<style>
+/**自定义日期控件清除样式**/
+label.icon-remove{
+	border-radius: 0 3px 3px 0 ;
+	margin-left: -10px;
+	margin-right: 5px;
+	border-right: 1px solid #ccc;
+	border-left: none;
+	cursor: pointer;
+}
+</style>
+<div class="header">
+	<div class="nav">
+	     <a class="backlogo" href="#"><img src="/images/manage/logo.png" /></a>
+	     <div class="top-panel">
+	     	<ul class="top-menu">
+<!-- 	     		<li style="width: 105px"><a href="/sys/index" id="header_index"><i class="icon-globe"></i>总览</a></li> -->
+				<#if Session.MENU_LIST?? && Session.MENU_LIST?size gt 0>
+					<#list Session.MENU_LIST as var>
+						<li><a href="${var.menuUrl!}" id="header_${var.menuCode!}"><i class="icon-user"></i>${var.menuTitle!}</a></li>
+					</#list>
+				</#if>
+	     	</ul>
+	     </div>
+         <div class="btn-group navuser">
+	      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${Session.OPERATOR_KEY.userName!'admin'}<span class="caret"></span></button>
+	      <ul class="dropdown-menu" role="menu">
+	        <li><a href="#">Action</a></li>
+	        <li class="divider"></li>
+	        <li><a href="javascript:void(0)" onclick="logout();">退出系统</a></li>
+	      </ul>
+	    </div>
+	</div>
+</div>

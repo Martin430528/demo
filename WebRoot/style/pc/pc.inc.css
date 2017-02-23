@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+body{font-family: 微软雅黑;}
+a{color: #999;}
+
+
+.w100{width: 100px;}
+.h50{height: 50px;}
+.lh50{line-height: 50px;}
+.fz20{font-size: 20px;}
+.logo{font-size: 20px; line-height: 50px; color: #666;}
+.navbar-nav li{min-width: 100px; text-align: center;}
+.navbar-nav li a{font-size: 16px;}

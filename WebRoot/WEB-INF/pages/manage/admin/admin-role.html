@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <title>管理员组管理</title>
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="/js/project/project.js"></script>
+    <script type="text/javascript">
+        //头部页签类别
+        var _headType = "sys_setting";
+        //左侧类别
+        var _leftmenu = "sys_setting_purview";
+        RS.importres(["inc", "font", "layer", "bootstrap", "jtemplates", "myPagination", "/style/manange/inc/manage.inc.css"]);
+        //加载完成
+        RS.ready = function () {
+            //加载首页列表
+            query();
+        };
+        function query() {
+            RS.loadPageData({
+                isarray: true, //是否为数组
+                url: "/sys/role/ajaxGetList",  //数据源地址
+                params: null, // 参数，页码字段统一为page（不用传，该方法内部自行控制）
+                container: "tbodyList", //列表容器
+                textareaid: "textareaTemp", //textarea模板id
+                loadcallback: function (data) { //每次查询回调方法，data为查询到的数据结果
+                	//绑定简单事件
+                	_fromtSingleData();
+                }
+            });
+        }
+        function showModal(roleName,id) {
+            $("#id").val(id);
+            $("#roleName").val(roleName);
+            $('#editModal').modal(null);
+        }
+        function edit() {
+            var roleName = $("#roleName").val();
+            if (isEmpty(roleName)) {
+                alertmsg("请输入角色名称");
+                return;
+            }
+            $("#closeBtn").click();
+            ajaxSubmit("/sys/role/ajaxEdit", "form", false, function (msg) {
+                if (msg.errcode === 0) {
+                	alertMsg("保存成功！", 1, function(){
+                		query();
+                	});
+                } else {
+                	alertMsg(msg.errmsg, 2);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<#include "/WEB-INF/pages/manage/inc/header.html"/>
+<div class="main" style="">
+    <!-- left -->
+    <#include "/WEB-INF/pages/manage/inc/left-menu.html"/>
+    <!-- end left menu -->
+    <!-- right begin -->
+    <div class="right" style="">
+        <ol class="breadcrumb">
+            <li class="active"><a href="javascript:;">系统设置</a></li>
+            <li>权限管理</li>
+        </ol>
+        <ul class="nav nav-tabs">
+		  <li><a href="/sys/admin/list">管理员</a></li>
+		  <li class="active"><a href="/sys/role/list">管理员组</a></li>
+		</ul>
+        <form class="form-inline top-form mgt10" action="" method="post" id="query_form" onsubmit="return false;">
+            <button type="button" class="btn btn-primary" onclick="showModal();">添加</button>
+        </form>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tbodyList">
+            </tbody>
+            <textarea id="textareaTemp" style="display: none">
+                {#if $T.list != null && $T.list.length > 0}
+                    {#foreach $T.list as curro}
+                        <tr style="text-align: center;">
+                            <td>{$T.curro.roleName}</td>
+                            <td>{$T.curro.createDateStr}</td>
+                            <td>
+                                <a href="javascript:;" class="btn btn-primary icon-pencil" onclick="showModal('{$T.curro.roleName}','{$T.curro.id}');"> 编辑</a>
+                                <a href="/sys/purview/list/{$T.curro.id}" class="btn btn-success icon-edit"> 授权</a>
+                                <a href="javascript:;" class="btn btn-danger icon-trash" data-tag="single_handle" data-url="/sys/role/ajaxDel" data-param="id:{$T.curro.id}" data-confirmmsg="您确定要删除?" data-msg="删除成功!"> 删除</a>
+                            </td>
+                        </tr>
+                    {#/for}
+                {#/if}
+            </textarea>
+        </table>
+        <div id="pagination" class="fenye"></div>
+        <!-- end right -->
+    </div>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close" id="closeBtn">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">编辑角色</h4>
+                </div>
+                <div class="modal-body" id="form">
+                    <table class="form" id="form_table">
+                        <tr>
+                            <td class="flabel">角色名称:</td>
+                            <td>
+                                <input type="hidden" id="id">
+                                <input type="text" id="roleName" valid="not-null"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="sub_btn" onclick="edit();">保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <#include "/WEB-INF/pages/manage/inc/footer.html"/>
+    <style>
+        div.modal-body img {
+            cursor: col-resize;
+        }
+    </style>
+</body>
+</html>

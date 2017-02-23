@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+/**-----------address地址选择器 start---------------------*/
+.addrhead{font-size:16px;top:0;box-sizing: border-box;background: rgba(255,255,255, 1);position:fixed;width:100%;height:44px;z-index:10;    border-bottom: solid 1px #eee;}
+.addrhead h3{line-height:44px;text-align: center;}
+.addrhead a.back{position: absolute;left:10px;top:0;height:44px;line-height:44px;background: none;}
+.addrhead a.back i{color:#999;}
+#addressblock{z-index:100000;position:absolute;width: 100%;min-height: 100%;top:0;background: #fff;padding-top:44px;}
+ul.provincelist{float:left;left:0;width:33%;min-height: 100%;padding-left: 0;padding-top: 0px;border-right: solid 1px #ddd;}
+ul.citylist{float:left;left:0;width:33%;min-height: 100%;padding-left: 0;padding-top: 0px;border-right: solid 1px #ddd;}
+ul.arealist{float:left;left:0;width:33%;min-height: 100%;padding-left: 0;padding-top: 0px;}
+#addressblock ul li{height:40px;line-height:40px;}
+#addressblock ul li a{display:block; height:40px;line-height:40px;}
+ul.provincelist li a{text-indent: 9px;cursor: pointer;}
+ul.provincelist li a.active{color:#333;background: #eee;}
+ul.citylist li a{color:#333;text-indent: 9px;cursor: pointer;}
+ul.citylist li a.active{color:#333;background: #eee;}
+ul.arealist li a{color:#333;text-indent: 9px;}
+/**-----------address地址选择器 end---------------------*/

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <title>基本设置</title>
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="/js/project/project.js"></script>
+    <!-- kindeditor begin-->
+	<link rel="stylesheet" href="/js/plugins/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="/js/plugins/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="/js/plugins/kindeditor/kindeditor-all-min.js"></script>
+	<script charset="utf-8" src="/js/plugins/kindeditor/lang/zh-CN.js"></script>
+	<script charset="utf-8" src="/js/plugins/kindeditor/plugins/code/prettify.js"></script>
+	<!-- kindeditor end-->
+    <script type="text/javascript">
+        //头部页签类别
+        var _headType = "sys_setting";
+      	//左侧类别
+        var _leftmenu = "sys_setting_param";
+        RS.importres(["inc", "font", "layer", "bootstrap", "jtemplates", "myPagination", "/style/manange/inc/manage.inc.css"]);
+      	//加载完成
+        RS.ready = function () {
+        };
+        
+        function saveFun(){
+        	if(!validForm("form")){
+        		return false;
+        	}
+        	
+        	var data = serializeFormToJson("form");
+        	data["configValue_copyright"] = editor.html();
+        	var param = {"datas":JSON.stringify(data)};
+        	post("/sys/setting/save", param, function(res){
+        		if(res.errcode === 0){
+        			alertMsg("保存成功！", 1, function(){
+        				window.location.reload();
+        			});
+        		}else{
+        			alertMsg(res.errmsg, 2);
+        		}
+        	});
+        }
+        
+        var editor;
+        KindEditor.ready(function(K) {
+    		editor = K.editor({
+    			allowFileManager : true,
+    			uploadJson: '/upload/kindeditorJson?maxWidth=640&maxHeight=640'
+    		});
+    		editor = K.create('textarea[id="configValue_copyright"]', {
+    			resizeType : 1,
+    			allowPreviewEmoticons : true,
+    			allowImageUpload : true,
+    			uploadJson : '/upload/kindeditorJson?maxWidth=600',
+    			width: '100%',
+    			height: '500px'
+    		});
+    	});
+        
+    </script>
+</head>
+<body>
+<#include "/WEB-INF/pages/manage/inc/header.html"/>
+<div class="main" style="">
+    <!-- left -->
+    <#include "/WEB-INF/pages/manage/inc/left-menu.html"/>
+    <!-- end left menu -->
+    <!-- right begin -->
+    <div class="right" style="">
+        <ol class="breadcrumb">
+            <li class="active"><a href="javascript:;">设置</a></li>
+            <li>基本设置</li>
+        </ol>
+        <table class="form" id="form" style="width: 80%;">
+            <tr>
+                <td class="flabel" style="width: 200px;">商城LOGO：</td>
+                <td>
+                	<!-- 初始值 -->
+                	<input class="uploadImg" placeHolder="商城LOGO图片" type="hidden" value="${configMap['logo'].configValue}" />
+                	<!-- 预览模块 -->
+					<span class="type-file-show">
+						<img class="show_image" src="/images/manage/preview.png">
+						<div class="type-file-preview">
+							<img src="/images/manage/default_goods_image.png" class="uploadImg" style="max-height: 100px; max-width: 100px"/>
+						</div>
+					</span>
+					<!-- 上传模块 -->
+					<span class="type-file-box"> 
+						<input type="text" id="configValue_logo" class="type-file-text uploadImg" style="cursor: pointer;" /> 
+						<input type="button" name="img_button" class="type-file-button " data-tag="uploadImg"
+							data-class="uploadImg"/>
+					</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="flabel" valign="top">服务内容：</td>
+                <td>
+                	<input id="configValue_serviceContent" placeHolder="全局的商品服务内容，也可在商品发布时单独编辑" type="text" value="${configMap['serviceContent'].configValue}" style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td class="flabel" valign="top">客服QQ：</td>
+                <td>
+                	<input id="configValue_serviceQq" placeHolder='商城客服QQ，多个用英文逗号","分隔' type="text" value="${configMap['serviceQq'].configValue}" style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td class="flabel" valign="top">库存预警阈值：</td>
+                <td>
+                	<input id="configValue_stockWarning" placeHolder='库存预警阈值' type="text" value="${configMap['stockWarning'].configValue}" style="width: 100%;">
+                </td>
+            </tr>
+            <tr>
+                <td class="flabel" style="width: 200px;">二维码：</td>
+                <td class="upload-div">
+                	<!-- 初始值 -->
+                	<input class="uploadImg6" type="hidden" placeHolder="显示在商城中的二维码" value="${configMap['qrcode'].configValue}" />
+                	<!-- 预览模块 -->
+					<span class="type-file-show">
+						<img class="show_image" src="/images/manage/preview.png">
+						<div class="type-file-preview">
+							<img src="/images/manage/default_goods_image.png" class="uploadImg6" style="max-height: 100px; max-width: 100px"/>
+						</div>
+					</span>
+					<!-- 上传模块 -->
+					<span class="type-file-box"> 
+						<input type="text" id="configValue_qrcode" class="type-file-text uploadImg6" style="cursor: pointer;" /> 
+						<input type="button" name="img_button" class="type-file-button " data-tag="uploadImg"
+							data-class="uploadImg6" /> 
+					</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="flabel" valign="top">底部版权：</td>
+                <td>
+                	<textarea rows="" cols="" id="configValue_copyright" style="width: 100%;">${configMap['copyright'].configValue}</textarea>
+                </td>
+            </tr>
+            <tr>
+            	<td></td>
+            	<td>
+            		<button type="button" class="btn btn-success" id="sub_btn" onclick="saveFun();">保存</button>
+            	</td>
+            </tr>
+        </table>
+        <!-- end right -->
+    </div>
+    <!-- footer -->
+    <#include "/WEB-INF/pages/manage/inc/footer.html"/>
+    <style>
+        div.modal-body img {
+            cursor: col-resize;
+        }
+    </style>
+    
+    <script type="text/javascript" src="/js/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/manage/uploadImg.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		/**上传图片*/
+        	$.loadImgInit();
+    	});
+    </script>
+    
+</body>
+</html>

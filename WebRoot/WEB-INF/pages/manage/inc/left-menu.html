@@ -1,0 +1,88 @@
+<!-- js加载有延时，需要手动引入 -->
+<script type="text/javascript" src="/js/jquery/jquery-1.9.1.min.js"></script>
+<div class="leftmenu" data-type="0">
+	<h2><img src="/images/manage/logo.png" height="40"></h2>
+	<hr class="line-mod">
+	<div class="sf" title="收起/展开"><span class="glyphicon glyphicon-chevron-left" style="line-height: 46px;"></span></div>
+	<ul class="nav">
+		<#if Session.MENU_LIST?? && Session.MENU_LIST?size gt 0>
+			<#list Session.MENU_LIST as var>
+				<li class="${var.menuCode!}">
+				    <#if var.menuCode == 'sys_index'>
+				        <a href="${var.menuUrl!}">
+				    <#else>
+				        <a href="javascript:;">
+				    </#if>
+						<i class="glyphicon ${var.menuIcon!}"></i>
+						<span class="menuname">${var.menuTitle!}</span>
+						<span class="tspan pull-right"></span>
+					</a>
+					<ul>
+						<#if var.sysMenuChildList?? && var.sysMenuChildList?size gt 0>
+							<#list var.sysMenuChildList as sub>
+								<li class="${sub.menuCode!}"><a href="${sub.menuUrl!}">${sub.menuTitle!}</a></li>
+							</#list>
+						</#if>
+					</ul>
+				</li>
+			</#list>
+		</#if>
+	</ul>
+</div>
+<script>
+	
+	$(function(){
+		//左菜单选中状态
+		if(_leftmenu=="" || _leftmenu == "sys_index"){
+			$(".leftmenu .nav>li:eq(0)").addClass("focus");
+		}else{
+			$(".leftmenu .nav>li>ul>li."+_leftmenu).parent().parent().addClass("focus").siblings().removeClass("focus");
+			$(".leftmenu .nav>li>ul>li."+_leftmenu).parent().slideDown();
+			$(".leftmenu .nav>li>ul>li."+_leftmenu).find("a").addClass("focus");
+		}
+		//如果左侧菜单已经隐藏，则加载完就隐藏左侧菜单
+		if (sessionStorage.isSF==1){
+			sfLeft();
+		}
+		
+		//左侧菜单栏点击事件
+		$(".leftmenu .nav>li>a").click(function(){
+			var obj = $(this).parent();//父li
+			$(obj).addClass("focus").siblings().removeClass("focus");//添加背景色和左边框
+			$(obj).find("ul").slideToggle(200,function(){//二级菜单隐藏显示
+				if($(obj).find("ul").is(":hidden")){//下级菜单已隐藏
+					$(obj).removeClass("focus");
+				}
+			});
+			$(obj).siblings().find("ul").slideUp(200);//其他二级菜单隐藏
+		});
+		
+		//左侧菜单显示隐藏
+		$(".sf").click(function(){
+			var type = $(".leftmenu").data("type");
+			if(type=="0"){//当前为显示，则隐藏
+				sfLeft();
+			}else{//当前为隐藏，则显示
+				sfRight();
+			}
+		});
+	});
+	
+	//左侧菜单向右滑动
+	function sfRight(){
+		sessionStorage.isSF=0;
+		$(".leftmenu").data("type","0");
+		$(".sf>span").addClass("glyphicon-chevron-left").removeClass("glyphicon-chevron-right");
+		$(".leftmenu").animate({left:"0px"},300);
+		$(".main .right").animate({left:"200px"},300);
+	}
+	
+	//左侧菜单向左滑动
+	function sfLeft(){
+		sessionStorage.isSF=1;
+		$(".leftmenu").data("type","1");
+		$(".sf>span").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-left");
+		$(".leftmenu").animate({left:"-192px"},300);
+		$(".main .right").animate({left:"9px"},300);
+	}
+</script>
